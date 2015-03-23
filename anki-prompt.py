@@ -15,6 +15,8 @@ import random
 import sys
 
 parser = ArgumentParser()
+parser.add_argument('-c', '--collection', required=True,
+                    help='path to the anki database')
 parser.add_argument('-d', '--deck', required=True,
                     help='name of the Anki deck to use')
 parser.add_argument('-s', '--show-answer', action='store_true',
@@ -27,9 +29,12 @@ parser.add_argument('--days', required=False,
 args = parser.parse_args()
 
 try:
-    col = Collection('/home/jarv/Documents/Anki/User 1/collection.anki2')
+    col = Collection(args.collection)
 except OperationalError:
     print(colored("Anki Deck locked", "magenta"))
+    sys.exit(0)
+except Exception as e:
+    print(colored("Error loading collection", "magenta"))
     sys.exit(0)
 
 deck = col.decks.byName(args.deck)

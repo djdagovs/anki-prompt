@@ -55,7 +55,7 @@ answer = qa['a'].encode('utf-8')
 question = re.sub('\[\[.*?\]\]', '', question)
 answer = re.sub('.*answer>', '', answer, flags=re.DOTALL)
 
-print(colored(question.strip(), "yellow")),
+print(colored(question.strip(), "yellow", attrs=['dark'])),
 
 if args.show_answer:
     print(colored(answer.strip(), "grey", attrs=['dark']))
